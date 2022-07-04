@@ -1,0 +1,28 @@
+{
+  "name": "forkify",
+  "version": "1.0.0",
+  "description": "Recipe Application",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dikshit2848/GetaRecipe.git"
+  },
+  "author": "Dikshit",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dikshit2848/GetaRecipe/issues"
+  },
+  "homepage": "https://github.com/dikshit2848/GetaRecipe#readme",
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.6.2",
+    "parcel": "^2.6.2"
+  },
+  "dependencies": {
+    "core-js": "^3.23.3",
+    "regenerator-runtime": "^0.13.9"
+  }
+}
