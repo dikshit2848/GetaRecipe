@@ -13,6 +13,25 @@ class RecipeView extends View {
     );
   }
 
+  addHandlerUpdateServings(handler) {
+    this._parentElement.addEventListener('click', e => {
+      const clicked = e.target.closest('.btn--tiny');
+      if (!clicked) return;
+      if (clicked.dataset.update > 0) handler(Number(clicked.dataset.update));
+      // e.preventDefault();
+    });
+  }
+
+  addHandlerAddBookmark(handler) {
+    this._parentElement.addEventListener('click', e => {
+      const clicked = e.target.closest('.btn--bookmark');
+      if (!clicked) return;
+      handler(this._data);
+      console.log(clicked);
+      // clicked.classlist
+    });
+  }
+
   _generateMarkup(recipe) {
     return `
         <figure class="recipe__fig">
@@ -42,26 +61,32 @@ class RecipeView extends View {
                 }</span>
                 <span class="recipe__info-text">servings</span>
                 <div class="recipe__info-buttons">
-                    <button class="btn--tiny btn--increase-servings">
+                    <button class="btn--tiny btn--increase-servings" data-update="${
+                      recipe.servings - 1
+                    }">
                         <svg>
                             <use href="${icons}#icon-minus-circle"></use>
                         </svg>
                     </button>
-                    <button class="btn--tiny btn--increase-servings">
+                    <button class="btn--tiny btn--increase-servings" data-update="${
+                      recipe.servings + 1
+                    }">
                         <svg>
                             <use href="${icons}#icon-plus-circle"></use>
                         </svg>
                     </button>
                 </div>
             </div>
-            <div class="recipe__user-generated">
+            <div class="recipe__user-generated ${!recipe.key && 'hidden'}">
                 <svg>
                     <use href="${icons}#icon-user"></use>
                 </svg>
             </div>
-            <button class="btn--round">
+            <button class="btn--round btn--bookmark">
                 <svg class="">
-                    <use href="${icons}#icon-bookmark-fill"></use>
+                    <use href="${icons}#icon-bookmark${
+      recipe.bookmarked ? '-fill' : ''
+    }"></use>
                 </svg>
             </button>
         </div>

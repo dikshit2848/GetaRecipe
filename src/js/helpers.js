@@ -10,7 +10,7 @@ const timeout = function (s) {
 
 export const getJson = async function (url) {
   try {
-    const res = await Promise.race([fetch(url), timeout(TIMEOUT_SECONDS)]);
+    const res = await Promise.race([, timeout(TIMEOUT_SECONDS)]);
     const data = await res.json();
     if (!res.ok) throw new Error(`${data.message}(${res.status})`);
     return data;
@@ -18,3 +18,25 @@ export const getJson = async function (url) {
     throw error;
   }
 };
+
+export default AJAX = async (url, uploadData = undefined) => {
+  try {
+    const fetchPro = uploadData
+      ? fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(uploadData),
+        })
+      : fetch(url);
+    const res = await Promise.race([fetchPro, timeout(TIMEOUT_SECONDS)]);
+    const data = await res.json();
+    if (!res.ok) throw new Error(`${data.message}(${res.status})`);
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const sendJSON = async function (url, uploadData) {};
